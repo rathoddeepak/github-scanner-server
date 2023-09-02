@@ -47,9 +47,9 @@ const getUserRepos = async ({ token, limit = 100, offsetCursor = null } = {}) =>
 	}
 };
 
-const getRepoStats = async (token, params = {}) => {
+const getRepoStats = async (token, params = {}, branch) => {
 	const { owner = "", repoName = ""} = params;
-	const endpoint = `https://api.github.com/repos/${owner}/${repoName}/git/trees/master?recursive=1`;
+	const endpoint = `https://api.github.com/repos/${owner}/${repoName}/git/trees/${branch}?recursive=1`;
 	const response = await fetch(endpoint, {
 		headers: {
 	      "Content-Type": "application/json",
@@ -113,6 +113,10 @@ const getRepoDetails = async (params = {}) => {
 		  	id
 		 	login
 		}
+		defaultBranchRef {
+    	  id
+          name
+    	}
 	  }
 	}`;
 
@@ -123,7 +127,8 @@ const getRepoDetails = async (params = {}) => {
 	
 	if(response?.success) {
 		const data = response.data?.repository;
-		const { numFiles, ymlContent, activeWebhooks } = await getRepoStats(token, params);
+		const branch = data.defaultBranchRef.name;
+		const { numFiles, ymlContent, activeWebhooks } = await getRepoStats(token, params, branch);
 		const result = {
 			name: data.name,
 		    size: data.diskUsage,
