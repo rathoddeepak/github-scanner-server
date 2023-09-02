@@ -21,3 +21,14 @@ Get User Repository Details
 ![App Screenshot](https://i.postimg.cc/WbstsSQ7/Screenshot-2023-09-02-at-10-43-19-AM.png)
 
 
+## Installation
+
+Install node modules by running <br>
+```npm install``` or ```yarn```
+
+Run Server with one of following command <br>
+```node index.js``` or ```npm run start``` or ```yarn start```
+
+Open http://localhost:4000/graphql on your browser
+
+
