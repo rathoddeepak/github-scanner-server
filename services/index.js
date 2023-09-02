@@ -53,12 +53,13 @@ const getRepoStats = async (token, params = {}, branch) => {
 	const response = await fetch(endpoint, {
 		headers: {
 	      "Content-Type": "application/json",
+	      "Authorization": `bearer ${token}`,
 	    }
-	});
+	});	
 	let numFiles = 0;
 	let ymlContent = [];
 	let activeWebhooks = 0;
-	const result = await response.json();	
+	const result = await response.json();
 	const fileTree = result?.tree || [];	
 	if(fileTree){		
 		fileTree.forEach((file) => {
